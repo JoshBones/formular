@@ -18,7 +18,7 @@ type FormValues = {
 }
 
 const SimpleForm: FC<{ onSubmit: () => void }> = ({ onSubmit }) => (
-    <Form<FormValues> onSubmit={onSubmit} initialValues={initialValues}>
+    <Form<FormValues> title="Simple Form" onSubmit={onSubmit} initialValues={initialValues}>
         {({ errors }) => (
             <>
                 <div>

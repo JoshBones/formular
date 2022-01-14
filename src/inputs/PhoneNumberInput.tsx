@@ -11,7 +11,7 @@ const PhoneNumberInput: FC<FormInputType<[string, string]>> = ({
     return (
         <FormInput<[string, string]>
             name={name}
-            label={validationLabel}
+            validationLabel={validationLabel}
             validators={validators}
         >
             {({ onChange, name, value, triggerValidation }) => (

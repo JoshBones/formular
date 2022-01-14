@@ -1,17 +1,20 @@
 import React, { ReactElement } from "react";
 import { render, RenderOptions } from "@testing-library/react";
 import { FormularContext } from "@formular/globals";
-import { FormContext } from "@formular/types";
+import { FormContext, Validator } from "@formular/types";
 
 export const renderWithFormContext = (
     ui: ReactElement,
-    options: Omit<RenderOptions, 'wrapper'> & { providerProps?: Partial<FormContext>, value?: unknown } = { value: "" }
+    options: Omit<RenderOptions, "wrapper"> & {
+        providerProps?: Partial<FormContext>;
+        initialValues?: Record<string, unknown>;
+    } = {}
 ) => {
     const context: FormContext = {
         onChange: jest.fn(() => null),
-        getValue: () => options.value,
-        setValidity: () => null,
-        getErrors: () => [],
+        getValue: jest.fn((name: string) => options?.initialValues[name]),
+        setValidity: jest.fn(() => null),
+        getErrors: jest.fn(() => null),
         ...(options.providerProps || {}),
     };
     return {
@@ -20,6 +23,16 @@ export const renderWithFormContext = (
             <FormularContext.Provider value={context}>
                 {ui}
             </FormularContext.Provider>
-        )
+        ),
     };
+};
+
+const errorMessage = "this looks bad, buddy";
+
+export const alwaysBadValidator = {
+    validator: () => ({
+        isValid: false,
+        message: errorMessage,
+    }),
+    errorMessage,
 };

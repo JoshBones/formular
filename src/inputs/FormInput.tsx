@@ -4,14 +4,14 @@ import { Validator } from "@formular/types";
 
 type Props<T> = {
     name: string;
-    label?: string;
+    validationLabel?: string;
     validators?: Validator<T>[];
     children: ({
         onChange,
         name,
         value,
         isValid,
-        triggerValidation
+        triggerValidation,
     }: {
         onChange: (value: T) => void;
         name: string;
@@ -21,32 +21,44 @@ type Props<T> = {
     }) => ReactElement;
 };
 
-export default function FormInput<T>({ name, label, validators=[], children }: Props<T>) {
+export default function FormInput<T>({
+    name,
+    validationLabel: label,
+    validators = [],
+    children,
+}: Props<T>) {
     const context = useContext(FormularContext);
     const value = context.getValue(name) as T;
     const isValid = (context.getErrors(name) || []).length > 0;
-    const validate = useCallback(() => {
-        const validationResult = validators.map((validator) => validator(label || name, value))
+    const validate = () => {
+        const validationResult = validators
+            .map((validator) => validator(label || name, value))
             .reduce(
                 (overallResult, currentResult) => {
                     overallResult = {
                         isValid: overallResult.isValid && currentResult.isValid,
-                        messages: [...overallResult.messages, currentResult.message]   
-                    }
+                        messages: [
+                            ...overallResult.messages,
+                            currentResult.message,
+                        ],
+                    };
 
                     return overallResult;
                 },
                 { isValid: true, messages: [] }
             );
-        
-        context.setValidity(name, validationResult.messages.filter(x => typeof x === 'string'));
-    }, [context, label, name, validators, value]);
+
+        context.setValidity(
+            name,
+            validationResult.messages.filter((x) => typeof x === "string")
+        );
+    };
 
     return children({
         onChange: (updatedValue) => context.onChange(name, updatedValue),
         name,
         value,
         isValid,
-        triggerValidation: validate
+        triggerValidation: validate,
     });
-};
+}

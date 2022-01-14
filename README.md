@@ -19,8 +19,8 @@ The most basic use case is pretty simple:
 
 ```tsx
 import Form from "@formular/form";
-import StringInput from "@formular/inputs/stringInput";
-import NumberInput from "@formular/inputs/numberInput";
+import StringInput from "@formular/inputs/StringInput";
+import NumberInput from "@formular/inputs/NumberInput";
 import isRequired from "@formular/validators/required";
 
 const initialValues = {

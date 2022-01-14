@@ -10,7 +10,7 @@ const StringInput: FC<FormInputType<string>> = ({
 }) => (
     <FormInput<string>
         name={name}
-        label={validationLabel}
+        validationLabel={validationLabel}
         validators={validators}
     >
         {({ onChange, name, value, triggerValidation }) => (

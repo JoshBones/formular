@@ -10,15 +10,16 @@ const NumberInput: FC<FormInputType<number>> = ({
 }) => (
     <FormInput<number>
         name={name}
-        label={validationLabel}
+        validationLabel={validationLabel}
         validators={validators}
     >
-        {({ onChange, name, value }) => (
+        {({ onChange, name, value, triggerValidation }) => (
             <input
                 type="number"
                 name={name}
                 value={value ? value.toString() : ""}
                 onChange={(e) => onChange(parseInt(e.target.value, 10))}
+                onBlur={triggerValidation}
                 {...otherProps}
             />
         )}
