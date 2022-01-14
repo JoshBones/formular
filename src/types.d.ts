@@ -23,10 +23,11 @@ export type ValidationResult = {
 
 export type Validator<T> = (label: string, value: T) => ValidatorResult;
 
-export interface FormInput<T> extends DetailedHTMLProps<
-    InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
-> {
+export interface FormInput<T>
+    extends DetailedHTMLProps<
+        InputHTMLAttributes<HTMLInputElement>,
+        HTMLInputElement
+    > {
     name: string;
     validationLabel?: string;
     validators?: Validator<T>[];

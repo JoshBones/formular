@@ -26,4 +26,4 @@ const NumberInput: FC<FormInputType<number>> = ({
     </FormInput>
 );
 
-export default NumberInput
+export default NumberInput;

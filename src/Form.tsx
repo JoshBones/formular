@@ -6,26 +6,41 @@ type Props<FormFields> = {
     title: string;
     onSubmit: (values: FormFields) => void;
     initialValues: FormFields;
-    children: ({ errors, isFormValid }: { errors: Record<string, string[]>, isFormValid: boolean }) => ReactNode;
+    children: ({
+        errors,
+        isFormValid,
+    }: {
+        errors: Record<string, string[]>;
+        isFormValid: boolean;
+    }) => ReactNode;
 };
 
-
-const generateInitialErrors = <FormFields extends Record<string, unknown>> (
-    values: FormFields,
+const generateInitialErrors = <FormFields extends Record<string, unknown>>(
+    values: FormFields
 ) =>
-    Object.keys(values).reduce((acc, key) => ({
-        ...acc,
-        [key]: []
-    }), {});
+    Object.keys(values).reduce(
+        (acc, key) => ({
+            ...acc,
+            [key]: [],
+        }),
+        {}
+    );
 
-export default function Form<FormFields extends Record<string, unknown>>({ title, onSubmit, initialValues, children }: Props<FormFields>) {
+export default function Form<FormFields extends Record<string, unknown>>({
+    title,
+    onSubmit,
+    initialValues,
+    children,
+}: Props<FormFields>) {
     const [formValues, setFormValues] = useState<FormFields>(initialValues);
-    const [formErrors, setFormErrors] = useState<Record<string, string[]>>(generateInitialErrors(initialValues));
+    const [formErrors, setFormErrors] = useState<Record<string, string[]>>(
+        generateInitialErrors(initialValues)
+    );
     const [isFormValid, setIsForValid] = useState<boolean>(true);
-    const setFormValue =(name, value) => {
-            setFormValues({ ...formValues, [name]: value });
-        };
-    const getFormValue =(name: keyof FormFields) => formValues[name];
+    const setFormValue = (name, value) => {
+        setFormValues({ ...formValues, [name]: value });
+    };
+    const getFormValue = (name: keyof FormFields) => formValues[name];
     const setValidity = (name: string, errorMessages: string[]) => {
         const updatedFormErrors = {
             ...formErrors,
@@ -34,7 +49,8 @@ export default function Form<FormFields extends Record<string, unknown>>({ title
         setFormErrors(updatedFormErrors);
         setIsForValid(
             Object.keys(updatedFormErrors).reduce(
-                (isValid, errs) => isValid && updatedFormErrors[errs].length === 0,
+                (isValid, errs) =>
+                    isValid && updatedFormErrors[errs].length === 0,
                 true
             )
         );
@@ -48,7 +64,7 @@ export default function Form<FormFields extends Record<string, unknown>>({ title
         onChange: setFormValue,
         getValue: getFormValue,
         setValidity,
-        getErrors
+        getErrors,
     };
 
     return (

@@ -49,7 +49,9 @@ test("FormInput should pass changes to the form context", () => {
         initialValue: "",
     });
 
-    fireEvent.change(getByLabelText(labelText), { target: { value: testValue } });
+    fireEvent.change(getByLabelText(labelText), {
+        target: { value: testValue },
+    });
     expect(formContext.onChange).toHaveBeenCalledWith(name, testValue);
 });
 
@@ -61,11 +63,11 @@ test("FormInput should pass validation errors to form context", () => {
         name,
         labelText,
         initialValue: "",
-        validators: [alwaysBadValidator.validator]
+        validators: [alwaysBadValidator.validator],
     });
 
     fireEvent.blur(getByLabelText(labelText));
     expect(formContext.setValidity).toHaveBeenCalledWith(name, [
-        alwaysBadValidator.errorMessage
+        alwaysBadValidator.errorMessage,
     ]);
 });

@@ -1,5 +1,8 @@
 import React from "react";
-import { alwaysBadValidator, renderWithFormContext } from "@formular/test/utils";
+import {
+    alwaysBadValidator,
+    renderWithFormContext,
+} from "@formular/test/utils";
 import NumberInput from "./NumberInput";
 import { fireEvent } from "@testing-library/react";
 
@@ -9,7 +12,7 @@ test("NumberInput should correctly use `FormInput`", () => {
     const props = {
         name: "age",
         validationLabel: "Age",
-        validators: [alwaysBadValidator.validator]
+        validators: [alwaysBadValidator.validator],
     };
     const { getByRole, formContext } = renderWithFormContext(
         <NumberInput {...props} />,
@@ -23,6 +26,8 @@ test("NumberInput should correctly use `FormInput`", () => {
     });
     fireEvent.blur(getByRole("spinbutton"));
     expect(formContext.onChange).toHaveBeenCalledWith(props.name, updatedValue);
-    expect(formContext.setValidity).toHaveBeenCalledWith(props.name, [alwaysBadValidator.errorMessage]);
+    expect(formContext.setValidity).toHaveBeenCalledWith(props.name, [
+        alwaysBadValidator.errorMessage,
+    ]);
     expect(formContext.getValue).toHaveBeenCalled();
 });

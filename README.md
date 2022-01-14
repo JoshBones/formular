@@ -1,6 +1,6 @@
 # Formular
 
-*React forms made easyish (maybe?) - for Wooga <3*
+_React forms made easyish (maybe?) - for Wooga <3_
 
 ## Quick start
 
@@ -14,8 +14,8 @@ I haven't included any build system for this yet, just storybook so you can view
 
 ### commands:
 
-* `npm start` - run storybook
-* `npm t` - run unit / integ tests
+-   `npm start` - run storybook
+-   `npm t` - run unit / integ tests
 
 ## Usage
 
@@ -30,18 +30,25 @@ import isRequired from "@formular/validators/required";
 const initialValues = {
     firstname: "",
     lastname: "",
-    age: null
-}
+    age: null,
+};
 
 type MyFormValues = {
     firstname: string;
     lastname: string;
     age: number;
-}
+};
 
 const MyForm: FC = () => (
-    <Form<MyFormValues> initialValues={initialValues} onSubmit={(values /* typed values passed here */) => sendToApi(values)}>
-        <StringInput name="firstname" validationLabel="First Name" validators={[isRequired]}/>
+    <Form<MyFormValues>
+        initialValues={initialValues}
+        onSubmit={(values /* typed values passed here */) => sendToApi(values)}
+    >
+        <StringInput
+            name="firstname"
+            validationLabel="First Name"
+            validators={[isRequired]}
+        />
         <StringInput name="firstname" />
         <NumberInput name="firstname" />
         <button type="submit">Submit</button>
@@ -64,9 +71,9 @@ This approach gives us the benefits of being able to work with our forms much li
 
 ## How it all works
 
-The `Form` component exposes a bunch of functionality for reading from / writing to form fields via 
+The `Form` component exposes a bunch of functionality for reading from / writing to form fields via
 [react's context api](https://reactjs.org/docs/context.html). The `FormInput` component accesses this context, and exposes
-the functionality to whatever input it is wrapping. 
+the functionality to whatever input it is wrapping.
 
 The user must provide initial / default values which the form component uses to initialise the fields and ensure that the correct
 structure is returned even if some fields remain untouched.
@@ -102,10 +109,10 @@ Validators are strongly typed, so its simple for users to add new ones as requir
 
 There are some important things missing, but time was limited so I've just listed them here in some kind of priority order
 
-* comprehensive testing. This was very exploratory, so TDD wasn't really appropriate. As such, testing is not comprehensive.
-* initial form validation for things like required fields, etc.
-* error message localisation
-* array fields. Pretty simple to implement as a custom input.
-* comprehensive examples. I would have loved to demo a wizard style form!
-* async validation
-* performance testing
+-   comprehensive testing. This was very exploratory, so TDD wasn't really appropriate. As such, testing is not comprehensive.
+-   initial form validation for things like required fields, etc.
+-   error message localisation
+-   array fields. Pretty simple to implement as a custom input.
+-   comprehensive examples. I would have loved to demo a wizard style form!
+-   async validation
+-   performance testing

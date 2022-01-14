@@ -1,7 +1,7 @@
-import React, { ReactElement } from "react";
-import { render, RenderOptions } from "@testing-library/react";
 import { FormularContext } from "@formular/globals";
-import { FormContext, Validator } from "@formular/types";
+import { FormContext } from "@formular/types";
+import { render, RenderOptions } from "@testing-library/react";
+import React, { ReactElement } from "react";
 
 export const renderWithFormContext = (
     ui: ReactElement,

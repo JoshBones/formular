@@ -16,7 +16,11 @@ const renderForm = ({
     return {
         onSubmitCallback,
         ...render(
-            <Form title="test-form" onSubmit={onSubmitCallback} initialValues={initialValues}>
+            <Form
+                title="test-form"
+                onSubmit={onSubmitCallback}
+                initialValues={initialValues}
+            >
                 {() => (
                     <>
                         {fields.map(({ label, name }) => (
@@ -88,7 +92,10 @@ test("Form should submit all values even when some are unset", () => {
         firstname: "",
         lastname: "",
     };
-    const { getByLabelText, getByRole, onSubmitCallback } = renderForm({ fields, initialValues });
+    const { getByLabelText, getByRole, onSubmitCallback } = renderForm({
+        fields,
+        initialValues,
+    });
 
     valuesToInput.forEach(({ label, value }) => {
         userEvent.type(getByLabelText(label), value);
@@ -112,12 +119,12 @@ test("Form should return typed values", () => {
         firstname: { label: "First Name", value: "Bobby" },
         lastname: { label: "Last Name", value: "McRobby" },
         age: { label: "Age", value: 25 },
-        phone: { label: "Phone No.", value: ["", ""]}
+        phone: { label: "Phone No.", value: ["", ""] },
     };
     const initialValues = {
         firstname: "",
         lastname: "",
-        age: null
+        age: null,
     };
     const onSubmitCallback = jest.fn().mockName("onSubmitCallback");
     const { getByLabelText, getByRole } = render(
@@ -147,13 +154,22 @@ test("Form should return typed values", () => {
         </Form>
     );
 
-    userEvent.type(getByLabelText(valuesToInput.firstname.label), valuesToInput.firstname.value);
-    userEvent.type(getByLabelText(valuesToInput.lastname.label), valuesToInput.lastname.value);
-    userEvent.type(getByLabelText(valuesToInput.age.label), valuesToInput.age.value.toString());
+    userEvent.type(
+        getByLabelText(valuesToInput.firstname.label),
+        valuesToInput.firstname.value
+    );
+    userEvent.type(
+        getByLabelText(valuesToInput.lastname.label),
+        valuesToInput.lastname.value
+    );
+    userEvent.type(
+        getByLabelText(valuesToInput.age.label),
+        valuesToInput.age.value.toString()
+    );
     userEvent.click(getByRole("button"));
 
     const expectedResult = {
-        firstname: "Bobby" ,
+        firstname: "Bobby",
         lastname: "McRobby",
         age: 25,
     };

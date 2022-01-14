@@ -16,7 +16,7 @@ type FormValues = {
     firstname: string;
     lastname: string;
     age: number;
-}
+};
 
 const FormContainer = styled.div`
     width: 500px;
@@ -36,12 +36,12 @@ const InputWithLabel = styled.label`
 `;
 
 const SubmitButton = styled.button.attrs(() => ({
-    type: "submit"
+    type: "submit",
 }))`
     padding: 5px 10px;
     margin-right: 10px;
     float: right; // look at me, using float like its 1995
-`
+`;
 
 const SimpleForm: FC<{ onSubmit: () => void }> = ({ onSubmit }) => (
     <FormContainer>
