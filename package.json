@@ -8,7 +8,7 @@
     "test-watch": "jest --watch",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "lint": "eslint src/**"
+    "lint": "eslint src/** examples/**"
   },
   "author": "josh bones",
   "license": "ISC",

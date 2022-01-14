@@ -1,6 +1,10 @@
-## Formular
+# Formular
 
 *React forms made easyish (maybe?) - for Wooga <3*
+
+## Quick start
+
+`npm i && npm start`
 
 ## Project structure
 
@@ -13,7 +17,7 @@ I haven't included any build system for this yet, just storybook so you can view
 * `npm start` - run storybook
 * `npm t` - run unit / integ tests
 
-## Quick start
+## Usage
 
 The most basic use case is pretty simple:
 

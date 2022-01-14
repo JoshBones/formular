@@ -27,11 +27,17 @@ export default function Form<FormFields extends Record<string, unknown>>({ title
         };
     const getFormValue =(name: keyof FormFields) => formValues[name];
     const setValidity = (name: string, errorMessages: string[]) => {
-        setFormErrors({
+        const updatedFormErrors = {
             ...formErrors,
-            [name]: errorMessages
-        });
-        setIsForValid(isFormValid && errorMessages.length === 0);
+            [name]: errorMessages,
+        };
+        setFormErrors(updatedFormErrors);
+        setIsForValid(
+            Object.keys(updatedFormErrors).reduce(
+                (isValid, errs) => isValid && updatedFormErrors[errs].length === 0,
+                true
+            )
+        );
     };
     const getErrors = (name: string) => formErrors[name];
     const onFormSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {

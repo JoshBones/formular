@@ -12,7 +12,6 @@ module.exports = {
         config.resolve.alias = {
             ...config.resolve.alias,
             "@formular": path.resolve(__dirname, "../src"),
-            "@formular": path.resolve(__dirname, "../src"),
         };
         return config;
     },
