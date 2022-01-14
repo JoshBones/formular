@@ -8,7 +8,6 @@
         "moduleResolution": "node",
         "baseUrl": ".",
         "paths": {
-            "@formular/*": ["src/*"],
             "@formular/*": ["src/*"]
         }
     },

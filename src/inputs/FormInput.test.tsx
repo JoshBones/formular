@@ -1,13 +1,13 @@
-import React from "react";
-import userEvent from "@testing-library/user-event";
 import { renderWithFormContext } from "@formular/test/utils";
+import { fireEvent } from "@testing-library/react";
+import React from "react";
 import FormInput from "./FormInput";
 
 const createTestProps = () => ({
     name: "firstname"
 });
 
-const renderComponent = ({ name, labelText }) =>
+const renderComponent = ({ name, labelText, initialValue }: { name: string, labelText: string, initialValue: unknown }) =>
     renderWithFormContext(
         <FormInput<string> name={name} label={labelText}>
             {({ onChange, name, value }) => (
@@ -20,17 +20,20 @@ const renderComponent = ({ name, labelText }) =>
                     />
                 </label>
             )}
-        </FormInput>
+        </FormInput>,
+        { value: initialValue }
     );
 
-test.skip("FormInput should pass changes to the form context", () => {
+test("FormInput should pass changes to the form context", () => {
     const { name } = createTestProps();
     const labelText = "First Name";
     const testValue = "Joey";
     const { formContext, getByLabelText } = renderComponent({
         name,
         labelText,
+        initialValue: ""
     });
-    userEvent.type(getByLabelText(labelText), testValue);
+
+    fireEvent.change(getByLabelText(labelText), { target: { value: testValue } });
     expect(formContext.onChange).toHaveBeenCalledWith(name, testValue);
 });

@@ -3,6 +3,7 @@ import { FormularContext } from "@formular/globals";
 import { FormContext } from "@formular/types";
 
 type Props<FormFields> = {
+    title: string;
     onSubmit: (values: FormFields) => void;
     initialValues: FormFields;
     children: ({ errors }: { errors: Record<string, string[]> }) => ReactNode;
@@ -10,14 +11,14 @@ type Props<FormFields> = {
 
 
 const generateInitialErrors = <FormFields extends Record<string, unknown>> (
-    values: FormFields
+    values: FormFields,
 ) =>
     Object.keys(values).reduce((acc, key) => ({
         ...acc,
         [key]: []
     }), {});
 
-export default function Form<FormFields extends Record<string, unknown>>({ onSubmit, initialValues, children }: Props<FormFields>) {
+export default function Form<FormFields extends Record<string, unknown>>({ title, onSubmit, initialValues, children }: Props<FormFields>) {
     const [formValues, setFormValues] = useState<FormFields>(initialValues);
     const [formErrors, setFormErrors] = useState<Record<string, string[]>>(generateInitialErrors(initialValues));
     const setFormValue =(name, value) => {
@@ -44,7 +45,7 @@ export default function Form<FormFields extends Record<string, unknown>>({ onSub
 
     return (
         <FormularContext.Provider value={context}>
-            <form onSubmit={onFormSubmit}>
+            <form role="form" title={title} onSubmit={onFormSubmit}>
                 {children({ errors: formErrors })}
             </form>
         </FormularContext.Provider>

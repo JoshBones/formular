@@ -5,12 +5,13 @@ import { FormContext } from "@formular/types";
 
 export const renderWithFormContext = (
     ui: ReactElement,
-    options: Omit<RenderOptions, 'wrapper'> & { providerProps?: Partial<FormContext> } = {}
+    options: Omit<RenderOptions, 'wrapper'> & { providerProps?: Partial<FormContext>, value?: unknown } = { value: "" }
 ) => {
     const context: FormContext = {
         onChange: jest.fn(() => null),
-        getValue: () => null,
+        getValue: () => options.value,
         setValidity: () => null,
+        getErrors: () => [],
         ...(options.providerProps || {}),
     };
     return {

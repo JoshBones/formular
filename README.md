@@ -64,6 +64,9 @@ The `Form` component exposes a bunch of functionality for reading from / writing
 [react's context api](https://reactjs.org/docs/context.html). The `FormInput` component accesses this context, and exposes
 the functionality to whatever input it is wrapping. 
 
+The user must provide initial / default values which the form component uses to initialise the fields and ensure that the correct
+structure is returned even if some fields remain untouched.
+
 ## Features
 
 ### Custom Inputs
@@ -89,7 +92,7 @@ couldn't find a solution I was happy with in the time available.
 There is some simple synchronous validation included. At the moment this is triggered by the inputs themselves, as they can best decide when its appropriate.
 Given more time I would investigate adding async validation.
 
-Validators are strongly typed, so its simple for users to add new ones as required.
+Validators are strongly typed, so its simple for users to add new ones as required with the `Validator<InputType>` type.
 
 ## Examples
 

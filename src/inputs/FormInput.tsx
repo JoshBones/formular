@@ -24,7 +24,7 @@ type Props<T> = {
 export default function FormInput<T>({ name, label, validators=[], children }: Props<T>) {
     const context = useContext(FormularContext);
     const value = context.getValue(name) as T;
-    const isValid = context.getErrors(name).length > 0;
+    const isValid = (context.getErrors(name) || []).length > 0;
     const validate = useCallback(() => {
         const validationResult = validators.map((validator) => validator(label || name, value))
             .reduce(

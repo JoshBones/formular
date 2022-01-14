@@ -3,7 +3,7 @@ import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Form from "./Form";
 import StringInput from "@formular/inputs/StringInput";
-import NumberInput from "./inputs/NumberInput";
+import NumberInput from "@formular/inputs/NumberInput";
 
 const renderForm = ({
     fields = [],
@@ -16,15 +16,19 @@ const renderForm = ({
     return {
         onSubmitCallback,
         ...render(
-            <Form onSubmit={onSubmitCallback} initialValues={initialValues}>
-                {fields.map(({ label, name }) => (
-                    <label key={name}>
-                        {label}
-                        <StringInput name={name} />
-                    </label>
-                ))}
+            <Form title="test-form" onSubmit={onSubmitCallback} initialValues={initialValues}>
+                {() => (
+                    <>
+                        {fields.map(({ label, name }) => (
+                            <label key={name}>
+                                {label}
+                                <StringInput name={name} />
+                            </label>
+                        ))}
 
-                <button type="submit">submit form</button>
+                        <button type="submit">submit form</button>
+                    </>
+                )}
             </Form>
         ),
     };
@@ -117,21 +121,29 @@ test("Form should return typed values", () => {
     };
     const onSubmitCallback = jest.fn().mockName("onSubmitCallback");
     const { getByLabelText, getByRole } = render(
-        <Form onSubmit={onSubmitCallback} initialValues={initialValues}>
-            <label>
-                {valuesToInput.firstname.label}
-                <StringInput name="firstname" />
-            </label>
-            <label>
-                {valuesToInput.lastname.label}
-                <StringInput name="lastname" />
-            </label>
-            <label>
-                {valuesToInput.age.label}
-                <NumberInput name="age" />
-            </label>
+        <Form
+            title="test-form"
+            onSubmit={onSubmitCallback}
+            initialValues={initialValues}
+        >
+            {() => (
+                <>
+                    <label>
+                        {valuesToInput.firstname.label}
+                        <StringInput name="firstname" />
+                    </label>
+                    <label>
+                        {valuesToInput.lastname.label}
+                        <StringInput name="lastname" />
+                    </label>
+                    <label>
+                        {valuesToInput.age.label}
+                        <NumberInput name="age" />
+                    </label>
 
-            <button type="submit">submit form</button>
+                    <button type="submit">submit form</button>
+                </>
+            )}
         </Form>
     );
 
