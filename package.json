@@ -8,7 +8,8 @@
         "test-watch": "jest --watch",
         "storybook": "start-storybook -p 6006",
         "build-storybook": "build-storybook",
-        "lint": "eslint src/** examples/** & prettier . --write"
+        "lint": "eslint src/** examples/** & prettier . --write",
+        "prepare": "husky install"
     },
     "author": "josh bones",
     "license": "ISC",
@@ -35,7 +36,9 @@
         "eslint-plugin-react-hooks": "^4.3.0",
         "eslint-plugin-storybook": "^0.5.5",
         "global-jsdom": "^8.4.0",
+        "husky": "^7.0.4",
         "jest": "^27.4.7",
+        "lint-staged": "^12.1.7",
         "prettier": "^2.5.1",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
@@ -47,5 +50,9 @@
     "source": "src/index.tsx",
     "main": "dist/formular.js",
     "types": "dist/types.d.ts",
-    "dependencies": {}
+    "dependencies": {},
+    "lint-staged": {
+        "*.{js, ts, jsx, tsx}": "eslint --cache --fix",
+        "*.{js, css, md, ts, jsx, tsx}": "prettier --write"
+    }
 }
