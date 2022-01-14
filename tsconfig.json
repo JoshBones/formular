@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "module": "esnext",
+        "target": "ES5",
+        "jsx": "react",
+        "rootDir": ".",
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+        "baseUrl": ".",
+        "paths": {
+            "@formular/*": ["src/*"],
+            "@formular/*": ["src/*"]
+        }
+    },
+    "exclude": [
+        "node_modules",
+        "build"
+    ]
+}
