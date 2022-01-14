@@ -6,7 +6,7 @@ type Props<FormFields> = {
     title: string;
     onSubmit: (values: FormFields) => void;
     initialValues: FormFields;
-    children: ({ errors }: { errors: Record<string, string[]> }) => ReactNode;
+    children: ({ errors, isFormValid }: { errors: Record<string, string[]>, isFormValid: boolean }) => ReactNode;
 };
 
 
@@ -21,6 +21,7 @@ const generateInitialErrors = <FormFields extends Record<string, unknown>> (
 export default function Form<FormFields extends Record<string, unknown>>({ title, onSubmit, initialValues, children }: Props<FormFields>) {
     const [formValues, setFormValues] = useState<FormFields>(initialValues);
     const [formErrors, setFormErrors] = useState<Record<string, string[]>>(generateInitialErrors(initialValues));
+    const [isFormValid, setIsForValid] = useState<boolean>(true);
     const setFormValue =(name, value) => {
             setFormValues({ ...formValues, [name]: value });
         };
@@ -30,6 +31,7 @@ export default function Form<FormFields extends Record<string, unknown>>({ title
             ...formErrors,
             [name]: errorMessages
         });
+        setIsForValid(isFormValid && errorMessages.length === 0);
     };
     const getErrors = (name: string) => formErrors[name];
     const onFormSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
@@ -46,7 +48,7 @@ export default function Form<FormFields extends Record<string, unknown>>({ title
     return (
         <FormularContext.Provider value={context}>
             <form role="form" title={title} onSubmit={onFormSubmit}>
-                {children({ errors: formErrors })}
+                {children({ errors: formErrors, isFormValid })}
             </form>
         </FormularContext.Provider>
     );

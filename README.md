@@ -94,15 +94,13 @@ Given more time I would investigate adding async validation.
 
 Validators are strongly typed, so its simple for users to add new ones as required with the `Validator<InputType>` type.
 
-## Examples
-
--   simple
--   pre-styled
--   advanced (wizard?)
-
 ## What is missing?
 
-* performance testing
-* async validation
+There are some important things missing, but time was limited so I've just listed them here in some kind of priority order
+
+* initial form validation for things like required fields, etc.
 * error message localisation
-* initial form validation (for things like required fields, etc.)
+* array fields. Pretty simple to implement as a custom input.
+* comprehensive examples. I would have loved to demo a wizard style form!
+* async validation
+* performance testing
