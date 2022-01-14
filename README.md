@@ -98,6 +98,7 @@ Validators are strongly typed, so its simple for users to add new ones as requir
 
 There are some important things missing, but time was limited so I've just listed them here in some kind of priority order
 
+* comprehensive testing. This was very exploratory, so TDD wasn't really appropriate. As such, testing is not comprehensive.
 * initial form validation for things like required fields, etc.
 * error message localisation
 * array fields. Pretty simple to implement as a custom input.
